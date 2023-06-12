@@ -7,11 +7,23 @@ import styles from "./Chart.module.css"
 const Chart = ({data:{confirmed, recovered, deaths}, country})=>{
     const [dailyData, setDaily] = useState([]);
 
-    useEffect(()=>void (async ()=>setDaily(await fetchDaily()))(),[])
+
+    useEffect(()=>{
+        fetchDaily().then(res=>{
+            setDaily(prev=>{
+                let finalResult = [...prev];
+                if(Array.isArray(res)){
+                    finalResult.push(...res);
+                }
+                return finalResult;
+            })
+        })
+        .catch(err=>console.log("error from daily iss, ", err))
+    },[])
     
     
     const lineChart = (
-        dailyData.length?
+        dailyData?.length?
         <Line
         data={{
             labels:dailyData.map(({date})=>date),
@@ -39,7 +51,7 @@ const Chart = ({data:{confirmed, recovered, deaths}, country})=>{
             datasets:[{
                 backgroundColor:["rgba(255, 0, 0, 0.5)","rgba(0, 255, 0, 0.5)","rgba(0, 0, 255, 0.5)"],
                 label:"People",
-                data:[confirmed.value, recovered.value, deaths.value]
+                data:[confirmed, recovered, deaths]
             }],
 
         }}

@@ -10,11 +10,10 @@ const Cards = ({ data: { confirmed, deaths, recovered, lastUpdate } }) => {
     return <Loader type="ThreeDots" color="#0000b3" height="55" width="60" />;
   return (
     <div className={styles.container}>
-      <Grid container justify="center" spacing={3}>
+      <Grid container justifyContent="center" spacing={3} >
         <Grid
           item
           xs={12}
-          md={3}
           component={Card}
           className={cx(styles.cards, styles.infected, styles.test1)}
         >
@@ -24,7 +23,7 @@ const Cards = ({ data: { confirmed, deaths, recovered, lastUpdate } }) => {
           <Typography variant="h5">
             <CountUp
               start={0}
-              end={confirmed.value}
+              end={confirmed}
               separator=","
               duration={2}
             />
@@ -38,7 +37,6 @@ const Cards = ({ data: { confirmed, deaths, recovered, lastUpdate } }) => {
         <Grid
           item
           xs={12}
-          md={3}
           component={Card}
           className={cx(styles.cards, styles.recovered, styles.test1)}
         >
@@ -48,7 +46,7 @@ const Cards = ({ data: { confirmed, deaths, recovered, lastUpdate } }) => {
           <Typography variant="h5">
             <CountUp
               start={0}
-              end={recovered.value}
+              end={recovered}
               separator=","
               duration={2}
             />
@@ -61,7 +59,6 @@ const Cards = ({ data: { confirmed, deaths, recovered, lastUpdate } }) => {
         <Grid
           item
           xs={12}
-          md={3}
           component={Card}
           className={cx(styles.cards, styles.deaths, styles.test1)}
         >
@@ -69,7 +66,7 @@ const Cards = ({ data: { confirmed, deaths, recovered, lastUpdate } }) => {
             Deaths
           </Typography>
           <Typography variant="h5">
-            <CountUp start={0} end={deaths.value} separator="," duration={2} />
+            <CountUp start={0} end={deaths} separator="," duration={2} />
           </Typography>
           <Typography color="textSecondary">
             {new Date(lastUpdate).toDateString()}
